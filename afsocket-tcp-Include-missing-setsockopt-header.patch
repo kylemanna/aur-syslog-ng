@@ -1,0 +1,30 @@
+From 4b8f7bccfe1183977a4e832ad2aa86f47a840213 Mon Sep 17 00:00:00 2001
+From: Kyle Manna <kyle@kylemanna.com>
+Date: Wed, 28 Sep 2016 17:12:15 -0700
+Subject: [PATCH] afsocket: tcp: Include missing setsockopt header
+
+The #ifdef macros disable the TCP_KEEPIDLE, TCP_KEEPCNT, TCP_KEEPINTVL
+set socket options as the header file that defines them is not included.
+
+Include the necessary header file to enable the options.
+
+Signed-off-by: Kyle Manna <kyle@kylemanna.com>
+---
+ modules/afsocket/socket-options-inet.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/modules/afsocket/socket-options-inet.c b/modules/afsocket/socket-options-inet.c
+index d2afa30..44aa974 100644
+--- a/modules/afsocket/socket-options-inet.c
++++ b/modules/afsocket/socket-options-inet.c
+@@ -25,6 +25,7 @@
+ #include "messages.h"
+ 
+ #include <string.h>
++#include <netinet/tcp.h>
+ 
+ #ifndef SOL_IP
+ #define SOL_IP IPPROTO_IP
+-- 
+2.10.0
+
